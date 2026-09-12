@@ -5,7 +5,9 @@ import About from "../components/About.astro";
 import Projects from "../components/Projects.astro";
 import Experience from "../components/Experience.astro";
 import Education from "../components/Education.astro";
+import BeyondCode from "../components/BeyondCode.astro";
 import Footer from "../components/Footer.astro";
+import Particles from "../components/Particles.astro";
 import { siteConfig } from "../config";
 import "../styles/global.css";
 ---
@@ -26,14 +28,18 @@ import "../styles/global.css";
     <title>{siteConfig.name} - {siteConfig.title}</title>
   </head>
   <body>
-    <Header />
-    <section>
-      <Hero />
-      <About />
-      <Projects />
-      <Experience />
-      <Education />
-    </section>
-    <Footer />
+    <Particles color={siteConfig.accentColor} quantity={85} size={0.8} />
+    <div class="relative z-10">
+      <Header />
+      <main>
+        <Hero />
+        <About />
+        <Projects />
+        <Experience />
+        <Education />
+        <BeyondCode />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>

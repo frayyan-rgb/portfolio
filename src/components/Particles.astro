@@ -1,0 +1,162 @@
+---
+interface Props {
+  color?: string;
+  quantity?: number;
+  size?: number;
+  staticity?: number;
+  ease?: number;
+}
+
+const {
+  color = "#1d4ed8",
+  quantity = 80,
+  size = 1,
+  staticity = 55,
+  ease = 55,
+} = Astro.props;
+---
+
+<div class="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+  <canvas
+    data-particles-canvas
+    data-color={color}
+    data-quantity={quantity}
+    data-size={size}
+    data-staticity={staticity}
+    data-ease={ease}
+    class="absolute inset-0 size-full"
+  ></canvas>
+</div>
+
+<script>
+  interface Particle {
+    x: number;
+    y: number;
+    offsetX: number;
+    offsetY: number;
+    radius: number;
+    alpha: number;
+    targetAlpha: number;
+    velocityX: number;
+    velocityY: number;
+    magnetism: number;
+  }
+
+  const hexToRgb = (hex: string) => {
+    const normalized = hex.replace("#", "");
+    const value = Number.parseInt(
+      normalized.length === 3
+        ? normalized
+            .split("")
+            .map((character) => character + character)
+            .join("")
+        : normalized,
+      16,
+    );
+
+    return [(value >> 16) & 255, (value >> 8) & 255, value & 255];
+  };
+
+  document.querySelectorAll<HTMLCanvasElement>("[data-particles-canvas]").forEach((canvas) => {
+    if (canvas.dataset.initialized === "true") return;
+    canvas.dataset.initialized = "true";
+
+    const container = canvas.parentElement;
+    const context = canvas.getContext("2d");
+    if (!container || !context) return;
+
+    const color = hexToRgb(canvas.dataset.color ?? "#1d4ed8");
+    const quantity = Number(canvas.dataset.quantity ?? 80);
+    const baseSize = Number(canvas.dataset.size ?? 1);
+    const staticity = Number(canvas.dataset.staticity ?? 55);
+    const ease = Number(canvas.dataset.ease ?? 55);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mouse = { x: 0, y: 0 };
+    let width = 0;
+    let height = 0;
+    let particles: Particle[] = [];
+    let animationFrame = 0;
+
+    const createParticle = (): Particle => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      offsetX: 0,
+      offsetY: 0,
+      radius: Math.random() * 1.6 + baseSize,
+      alpha: 0,
+      targetAlpha: Math.random() * 0.32 + 0.12,
+      velocityX: (Math.random() - 0.5) * 0.16,
+      velocityY: (Math.random() - 0.5) * 0.16,
+      magnetism: Math.random() * 3 + 1,
+    });
+
+    const resize = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = container.clientWidth;
+      height = container.clientHeight;
+      canvas.width = width * ratio;
+      canvas.height = height * ratio;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      particles = Array.from({ length: quantity }, createParticle);
+    };
+
+    const draw = () => {
+      context.clearRect(0, 0, width, height);
+
+      particles.forEach((particle) => {
+        particle.alpha = Math.min(particle.alpha + 0.01, particle.targetAlpha);
+
+        if (!reduceMotion) {
+          particle.x += particle.velocityX;
+          particle.y += particle.velocityY;
+          particle.offsetX +=
+            (mouse.x / (staticity / particle.magnetism) - particle.offsetX) / ease;
+          particle.offsetY +=
+            (mouse.y / (staticity / particle.magnetism) - particle.offsetY) / ease;
+
+          if (particle.x < -5) particle.x = width + 5;
+          if (particle.x > width + 5) particle.x = -5;
+          if (particle.y < -5) particle.y = height + 5;
+          if (particle.y > height + 5) particle.y = -5;
+        }
+
+        context.beginPath();
+        context.arc(
+          particle.x + particle.offsetX,
+          particle.y + particle.offsetY,
+          particle.radius,
+          0,
+          Math.PI * 2,
+        );
+        context.fillStyle = `rgba(${color.join(", ")}, ${particle.alpha})`;
+        context.fill();
+      });
+
+      if (!reduceMotion) animationFrame = requestAnimationFrame(draw);
+    };
+
+    const handleMouseMove = (event: MouseEvent) => {
+      const bounds = canvas.getBoundingClientRect();
+      mouse.x = event.clientX - bounds.left - width / 2;
+      mouse.y = event.clientY - bounds.top - height / 2;
+    };
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(container);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    resize();
+    draw();
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        cancelAnimationFrame(animationFrame);
+        resizeObserver.disconnect();
+        window.removeEventListener("mousemove", handleMouseMove);
+      },
+      { once: true },
+    );
+  });
+</script>

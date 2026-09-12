@@ -15,7 +15,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
       <li>
         <a
           href="#about"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
+          class="header-link transition-colors font-medium"
         >
           About
         </a>
@@ -25,7 +25,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           <li>
             <a
               href="#projects"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
+              class="header-link transition-colors font-medium"
             >
               Projects
             </a>
@@ -37,7 +37,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           <li>
             <a
               href="#experience"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
+              class="header-link transition-colors font-medium"
             >
               Experience
             </a>
@@ -49,30 +49,51 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           <li>
             <a
               href="#education"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
+              class="header-link transition-colors font-medium"
             >
               Education
             </a>
           </li>
         )
       }
+      <li>
+        <a
+          href="#beyond-code"
+          class="header-link transition-colors font-medium"
+        >
+          Beyond Code
+        </a>
+      </li>
     </ul>
   </nav>
 </header>
 
 <script>
-  window.addEventListener("scroll", () => {
+  const updateHeader = () => {
     const header = document.getElementById("header");
-    if (window.scrollY > 100) {
-      header?.classList.add("bg-white/80", "backdrop-blur-sm");
-    } else {
-      header?.classList.remove("bg-white/80", "backdrop-blur-sm");
-    }
-  });
+    const isScrolled = window.scrollY > 100;
+    header?.classList.toggle("bg-slate-950/90", isScrolled);
+    header?.classList.toggle("backdrop-blur-sm", isScrolled);
+    header?.classList.toggle("shadow-sm", isScrolled);
+    header?.classList.toggle("border-b", isScrolled);
+    header?.classList.toggle("border-slate-800", isScrolled);
+  };
+
+  window.addEventListener("scroll", updateHeader, { passive: true });
+  updateHeader();
 </script>
 
 <style>
   html {
     scroll-behavior: smooth;
   }
+
+  .header-link {
+    color: rgb(226 232 240);
+  }
+
+  .header-link:hover {
+    color: white;
+  }
+
 </style>
