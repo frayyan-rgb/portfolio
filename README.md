@@ -38,8 +38,3 @@ npm run build
 - [LinkedIn](https://linkedin.com/in/rayyanfs)
 - [GitHub](https://github.com/frayyan-rgb)
 - [Email](mailto:frayyan@umass.edu)
-
-## Acknowledgment
-
-Originally based on the MIT-licensed
-[DevPortfolio](https://github.com/RyanFitzgerald/devportfolio) template.
