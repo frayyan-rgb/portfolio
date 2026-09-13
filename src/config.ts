@@ -97,6 +97,25 @@ export const siteConfig = {
   ],
   experience: [
     {
+      company: "UMass Amherst Information Technology",
+      title: "Student Ambassador",
+      dateRange: "Aug. 2026 - Present",
+      location: "Amherst, Massachusetts, United States",
+      technologies: [
+        "Public Speaking",
+        "Marketing",
+        "Technology Marketing",
+        "Social Media Outreach",
+        "Technical Communication",
+        "Teamwork",
+      ],
+      links: [],
+      bullets: [
+        "Promote new technology tools and IT resources to UMass students through campus events and social media.",
+        "Test university services, provide feedback to IT staff, and help improve the overall student technology experience.",
+      ],
+    },
+    {
       company: "UMass Amherst",
       title: "Machine Learning Researcher",
       dateRange: "May 2026 - Sep. 2026",
