@@ -100,7 +100,7 @@ export const siteConfig = {
       company: "UMass Amherst Information Technology",
       title: "Student Ambassador",
       dateRange: "Aug. 2026 - Present",
-      location: "Amherst, Massachusetts, United States",
+      location: "Amherst, Ma",
       technologies: [
         "Public Speaking",
         "Marketing",
