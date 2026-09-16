@@ -94,6 +94,21 @@ export const siteConfig = {
         "OpenRouter",
       ],
     },
+    {
+      name: "Campus Club Finder",
+      subtitle: "Campus Organization Discovery Platform",
+      context: "Personal Project",
+      description:
+        "A responsive platform that helps UMass students discover and explore campus clubs and organizations.",
+      bullets: [
+        "Built a responsive platform enabling UMass students to discover and explore more than 50 campus clubs and organizations.",
+        "Implemented tag-based recommendations, persistent saved clubs, and filtering by category, meeting time, and commitment level.",
+      ],
+      links: [
+        { label: "GitHub", url: "https://github.com/nealp/clubFinderApp" },
+      ],
+      skills: ["React", "Next.js", "Tailwind CSS", "Supabase"],
+    },
   ],
   experience: [
     {
@@ -172,14 +187,37 @@ export const siteConfig = {
         "Slashed recurring crash and infinite-load incidents to near zero by replacing full-page reloads with client-side navigation and selective data loading, eliminating redundant network requests that failed on unstable in-store connections.",
       ],
     },
+    {
+      company: "BuildUMass | Global Veterinary Fund (Nonprofit)",
+      title: "Volunteer Software Developer",
+      dateRange: "Feb. 2026 - Present",
+      location: "Amherst, MA",
+      technologies: [],
+      links: [],
+      bullets: [
+        "Building a full-stack website with application forms, payment integration, an events system, and an authenticated admin panel.",
+      ],
+    },
+    {
+      company: "UMass Pitch",
+      title: "Secretary",
+      dateRange: "Apr. 2026 - Present",
+      location: "Amherst, MA",
+      technologies: [],
+      links: [],
+      bullets: [
+        "Maintain meeting records, communicate updates to members, and help coordinate rehearsals, performances, and club activities.",
+      ],
+    },
   ],
   education: [
     {
       school: "University of Massachusetts Amherst",
-      degree: "Bachelor of Science in Computer Science | GPA: 3.95/4.00",
+      degree:
+        "Bachelor of Science in Computer Science, Commonwealth Honors College | GPA: 3.95/4.00",
       dateRange: "Expected May 2028",
       achievements: [
-        "Honors: Chancellor's Award, Dean's List",
+        "Honors: Chancellor's Award ($18,000/year merit scholarship), Dean's List every semester",
         "Relevant Coursework: Data Structures & Algorithms, Reasoning Under Uncertainty, Intro to Computation, Introduction to C Programming, Discrete Mathematics, Object-Oriented Programming, Linear Algebra, Multivariate Calculus",
       ],
     },
